@@ -1,4 +1,41 @@
 # YOLOV8_SiamFC
+### First Step
++ Prepare the video
+----
+### Second Step
+Run `demo.py` to generate the image (video -> image). It will take a long time, so be prepared. 
++ Uncomment this code before running `demo.py`.
+```python
+roi = img[pt1[1]-30:pt2[1]+30, pt1[0]-30:pt2[0]+30]
+    
+# Before predicting, you have to change the data type to a NumPy array.
+roi = np.array(roi)
+
+# There are many hyperparameters in there. Please refer to the official website.
+# https://docs.ultralytics.com/zh/usage/cfg/#predict
+results = model.predict(roi, device='0', conf=0.25, max_det=1)
+if results[0].masks is not None:
+    clss = results[0].boxes.cls.cpu().tolist()
+    masks = results[0].masks.xy
+
+    annotator = Annotator(roi, line_width=2)
+
+    for idx, (mask, cls) in enumerate(zip(masks, clss)):
+        det_label = names[int(cls)]
+        if det_label in objects_of_interest:
+            annotator.seg_bbox(mask=mask,
+                            det_label=det_label)
+
+img[pt1[1]-30:pt2[1]+30, pt1[0]-30:pt2[0]+30] = roi
+```
+----
+### Third Step
+```shell
+python demo.py --model pretrained --data video
+```
+----
+# [After preparing all of the data]
+----
 ### How to Run ?
 ```shell
 python demo_image.py --model pretrained --data video\img
