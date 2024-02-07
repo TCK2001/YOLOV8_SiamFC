@@ -4,7 +4,7 @@
 ----
 ### Second Step
 Run `demo.py` to generate the image (video -> image). It will take a long time, so be prepared. 
-+ Uncomment this code before running `demo.py`.
++ Uncomment below code (siamfc/ops.py) before running `demo.py`.
 ```python
 roi = img[pt1[1]-30:pt2[1]+30, pt1[0]-30:pt2[0]+30]
     
