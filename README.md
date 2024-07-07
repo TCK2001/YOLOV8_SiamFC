@@ -6,6 +6,13 @@
 Run `demo.py` to generate the image (video -> image). It will take a long time, so be prepared. 
 + Comment below code (siamfc/ops.py) before running `demo.py`.
 ```python
+seq_dir = os.path.expanduser(videodata)
+img_files = sorted(glob.glob(seq_dir + '/img/*.jpg'))
+tracker = TrackerSiamFC(net_path=modelpth)
+tracker.track(img_files, rect, visualize=True)
+```
+-----
+```python
 roi = img[pt1[1]-30:pt2[1]+30, pt1[0]-30:pt2[0]+30]
     
 # Before predicting, you have to change the data type to a NumPy array.
